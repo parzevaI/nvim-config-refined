@@ -24,29 +24,29 @@ map({ "n", "v" }, "*", "*N", { desc = "highlight instances of word under cursor"
 map({ "n", "v" }, "n", "nzz", { desc = "next result" })
 
 -- file searching (snacks picker)
--- map("n", "<leader>fa", function()
---   require("snacks").picker.smart()
--- end, {desc = "Smart Find Files"} )
+map("n", "<leader>fa", function()
+  require("snacks").picker.smart()
+end, {desc = "Smart Find Files"} )
 
--- map("n", "<leader>fb,", function()
---   require("snacks").picker.buffers()
--- end, {desc = "Buffers"} )
+map("n", "<leader>fb,", function()
+  require("snacks").picker.buffers()
+end, {desc = "Buffers"} )
 
--- map("n", "<leader>fw", function()
---   require("snacks").picker.grep()
--- end, {desc = "Grep"} )
+map("n", "<leader>fw", function()
+  require("snacks").picker.grep()
+end, {desc = "Grep"} )
 
--- map("n", "<leader>f;", function()
---   require("snacks").picker.command_history()
--- end, {desc = "Command History"} )
+map("n", "<leader>f;", function()
+  require("snacks").picker.command_history()
+end, {desc = "Command History"} )
 
--- map("n", "<leader>fn", function()
---   require("snacks").picker.notifications()
--- end, {desc = "Notification History"} )
+map("n", "<leader>fn", function()
+  require("snacks").picker.notifications()
+end, {desc = "Notification History"} )
 
--- map("n", "e", function()
---   require("snacks").explorer()
--- end, {desc = "File Explorer"} )
+map("n", "e", function()
+  require("snacks").explorer()
+end, {desc = "File Explorer"} )
 
 
 -- TEXT ------------------------------------

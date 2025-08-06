@@ -1,4 +1,22 @@
 return {
+    -- PACKAGE MANAGER -------------------------
+    {
+        "williamboman/mason.nvim",
+        opts = {
+            ensure_installed = {
+                "pyright",
+                "rust-analyzer",
+                "typescript-language-server",
+                "eslint-lsp",
+                "styled-components-language-server",
+                "lua-language-server",
+                "stylua",
+                "html-lsp",
+                "css-lsp",
+                "prettier",
+            },
+        },
+    },
 
 
     -- TEXT EDITING ----------------------------
@@ -89,6 +107,38 @@ return {
         end
     },
 
+    -- better syntax highlighting for styled-components and CSS-in-JS
+    {
+        "HiPhish/rainbow-delimiters.nvim",
+        event = "BufEnter",
+        config = function()
+            local rainbow_delimiters = require 'rainbow-delimiters'
+            vim.g.rainbow_delimiters = {
+                strategy = {
+                    [''] = rainbow_delimiters.strategy['global'],
+                    vim = rainbow_delimiters.strategy['local'],
+                },
+                query = {
+                    [''] = 'rainbow-delimiters',
+                    lua = 'rainbow-blocks',
+                    javascript = 'rainbow-delimiters-react',
+                    typescript = 'rainbow-delimiters-react',
+                    tsx = 'rainbow-delimiters-react',
+                    jsx = 'rainbow-delimiters-react',
+                },
+                highlight = {
+                    'RainbowDelimiterRed',
+                    'RainbowDelimiterYellow',
+                    'RainbowDelimiterBlue',
+                    'RainbowDelimiterOrange',
+                    'RainbowDelimiterGreen',
+                    'RainbowDelimiterViolet',
+                    'RainbowDelimiterCyan',
+                },
+            }
+        end
+    },
+
 
     -- FILES -----------------------------------
     -- repaces telescope and the file explorer (amongst other things)
@@ -135,7 +185,13 @@ return {
                 "lua",
                 "vimdoc",
                 "html",
-                "css"
+                "css",
+                "python",
+                "rust",
+                "javascript",
+                "typescript",
+                "tsx",
+                "jsx"
             },
             highlight = { enable = true },
             indent = { enable = true },
