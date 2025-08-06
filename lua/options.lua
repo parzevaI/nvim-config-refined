@@ -6,13 +6,16 @@ require "nvchad.options"
 vim.opt.guifont = "Maple\\ Mono\\ NF"
 
 -- set nowrap
-vim.opt_local.wrap = false
+vim.opt.wrap = false
 
 -- set relativenumber
 vim.opt.relativenumber = true
 
 -- set tab width
 vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
 
 -- set color for eyeliner plugin (f/F, t/T movement)
 vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg = "#FFFFFF" })
