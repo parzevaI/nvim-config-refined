@@ -22,6 +22,9 @@ vim.opt.expandtab = true
 vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg = "#FFFFFF" })
 vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg = "#F7B5B5" })
 
+-- highlights the line the cursor is on
+vim.o.cursorlineopt ='both' -- to enable cursorline!
+
 
 -- CUSTOM COMMANDS -------------------------
 -- create react component
@@ -63,5 +66,3 @@ vim.api.nvim_create_user_command(
 )
 
 
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
