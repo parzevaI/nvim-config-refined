@@ -12,9 +12,10 @@ vim.opt.wrap = false
 vim.opt.relativenumber = true
 
 -- set tab width
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
+local tabWidth = 4
+vim.opt.tabstop = tabWidth
+vim.opt.shiftwidth = tabWidth
+vim.opt.softtabstop = tabWidth
 vim.opt.expandtab = true
 
 -- set color for eyeliner plugin (f/F, t/T movement)

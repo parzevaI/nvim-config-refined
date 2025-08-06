@@ -3,7 +3,9 @@ local utils = require("utils")
 
 local map = vim.keymap.set
 
-map("n", ";", ":", { desc = "CMD enter command mode" })
+-- faster basic commands
+map("n", ";", ":", { desc = "enter command mode" })
+map("v", ";", ":'<,'>", { desc = "enter command mode" })
 map({ "i", "c" }, "jk", "<ESC>")
 map("i", "jj", "<ESC>")
 
