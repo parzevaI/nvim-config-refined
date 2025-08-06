@@ -23,7 +23,7 @@ vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg = "#FFFFFF" })
 vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg = "#F7B5B5" })
 
 -- highlights the line the cursor is on
-vim.o.cursorlineopt ='both' -- to enable cursorline!
+vim.o.cursorlineopt = 'both' -- to enable cursorline!
 
 
 -- CUSTOM COMMANDS -------------------------
@@ -32,9 +32,6 @@ vim.o.cursorlineopt ='both' -- to enable cursorline!
 vim.api.nvim_create_user_command(
     "NewComponent",
     function(opts)
-        local function firstToUpper(str)
-            return (str:gsub("^%l", string.upper))
-        end
         local name = firstToUpper(opts.fargs[1])
         local config = vim.fn.stdpath("config")
 
@@ -65,4 +62,41 @@ vim.api.nvim_create_user_command(
     { nargs = 1 }
 )
 
+-- toggle zen mode
+-- DOESNT WORD YET
+local zenModeEnabled = false
+vim.api.nvim_create_user_command(
+    "ToggleZen",
+    function()
+        if zenModeEnabled then
+            -- conform
+            vim.g.conform_format_on_save = false
 
+            -- blink
+            local new_sources = {}
+            for _, source in ipairs(cmp.get_config().sources) do
+                if source.name ~= "blink" then
+                    table.insert(new_sources, source)
+                else
+                    blink_cmp_source = source -- store it to re-enable later
+                end
+            end
+            cmp.setup({ sources = new_sources })
+
+
+            print('Zen mode disabled')
+        else
+            -- conform
+            vim.g.conform_format_on_save = true
+
+            if blink_cmp_source then
+                local current_sources = cmp.get_config().sources
+                table.insert(current_sources, blink_cmp_source)
+                cmp.setup({ sources = current_sources })
+            end
+
+            print(' 🧘 Hush, im zenning... zzzZZZZZ')
+        end
+    end,
+    { nargs = 0 }
+)

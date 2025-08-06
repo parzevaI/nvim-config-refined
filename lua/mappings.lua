@@ -22,6 +22,7 @@ map({ "n", "v" }, "K", "{", { desc = "move up a text block" })
 
 -- text searching
 map({ "n", "v" }, "s", "/", { desc = "flash search" })
+map({ "n", "v" }, "?", "/", { desc = "search for word" })
 map({ "n", "v" }, "*", "*N", { desc = "highlight instances of word under cursor" })
 map({ "n", "v" }, "n", "nzz", { desc = "next result" })
 
