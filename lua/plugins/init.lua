@@ -191,7 +191,7 @@ return {
                 "javascript",
                 "typescript",
                 "tsx",
-                "jsx"
+                --                "jsx"
             },
             highlight = { enable = true },
             indent = { enable = true },

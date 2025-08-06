@@ -9,7 +9,10 @@ vim.opt.guifont = "Maple\\ Mono\\ NF"
 vim.opt_local.wrap = false
 
 -- set relativenumber
-vim.wo.relativenumber = true
+vim.opt.relativenumber = true
+
+-- set tab width
+vim.opt.tabstop = 4
 
 -- set color for eyeliner plugin (f/F, t/T movement)
 vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg = "#FFFFFF" })
