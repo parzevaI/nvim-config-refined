@@ -49,6 +49,38 @@ map({ "n", "v" }, "n", "nzz", { desc = "next result" })
 -- end, {desc = "File Explorer"} )
 
 
+-- TEXT ------------------------------------
+-- text editing
+map("n", "U", "<C-r>", { desc = "redo" })
+map("n", "gp", "'[V']", { desc = "select last change/paste" })
+map("n", "E", "<cmd>TSJToggle<CR>", { desc = "toggle collapsed formatting" })
+map("n", "<C-a>", "ggVG", { desc = "select all" }) -- change this to keep cursor in the same location
+
+-- comments
+map("n", "/", function()
+    require("Comment.api").toggle.linewise.current()
+end, { desc = "toggle comment" })
+
+map("v", "/",
+    "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+    { desc = "toggle comment" })
+
+-- snippets (luasnip)
+map({ "i", "s" }, "<c-l>", function()
+    require("luasnip").jump(1)
+end, {
+    silent = true,
+    desc = "forward one selection",
+})
+
+map({ "i", "s" }, "<c-h>", function()
+    require("luasnip").jump(-1)
+end, {
+    silent = true,
+    desc = "back one selection",
+})
+
+
 -- WINDOWS ---------------------------------
 -- file
 map("n", "w", ":w<CR>", { desc = "quick save" })
@@ -90,38 +122,6 @@ end, { desc = "run current file" })
 map("t", "<Bar>", function()
     utils.runfile(vim.fn.getreg('#'))
 end, { desc = "run current file" })
-
-
--- TEXT ------------------------------------
--- text editing
-map("n", "U", "<C-r>", { desc = "redo" })
-map("n", "gp", "'[V']", { desc = "select last change/paste" })
-map("n", "E", "<cmd>TSJToggle<CR>", { desc = "toggle collapsed formatting" })
-map("n", "<C-a>", "ggVG", { desc = "select all" }) -- change this to keep cursor in the same location
-
--- comments
-map("n", "/", function()
-    require("Comment.api").toggle.linewise.current()
-end, { desc = "toggle comment" })
-
-map("v", "/",
-    "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-    { desc = "toggle comment" })
-
--- snippets (luasnip)
-map({ "i", "s" }, "<c-l>", function()
-    require("luasnip").jump(1)
-end, {
-    silent = true,
-    desc = "forward one selection",
-})
-
-map({ "i", "s" }, "<c-h>", function()
-    require("luasnip").jump(-1)
-end, {
-    silent = true,
-    desc = "back one selection",
-})
 
 
 
