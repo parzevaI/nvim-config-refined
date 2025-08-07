@@ -16,8 +16,8 @@ map({ "n", "v" }, "j", "gj", { desc = "move down" })
 map({ "n", "v" }, "k", "gk", { desc = "move up" })
 map({ "n", "v" }, "H", "b", { desc = "move back a word" })
 map({ "n", "v" }, "L", "w", { desc = "move forward a word" })
-map({ "n", "v" }, "J", "}", { desc = "move down a text block" })
-map({ "n", "v" }, "K", "{", { desc = "move up a text block" })
+map({ "n", "v" }, "J", "5gj", { desc = "move down more" })
+map({ "n", "v" }, "K", "5gk", { desc = "move up more" })
 
 -- text searching
 map({ "n", "v" }, "s", "/", { desc = "flash search" })
