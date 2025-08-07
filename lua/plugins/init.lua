@@ -138,7 +138,7 @@ return {
         end
     },
 
-    -- better syntax highlighting for styled-components and CSS-in-JS
+    -- syntax hightlights nested delimeters (brackets or then end's) in different colors
     {
         "HiPhish/rainbow-delimiters.nvim",
         event = "BufEnter",

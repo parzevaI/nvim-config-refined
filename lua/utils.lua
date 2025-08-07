@@ -1,5 +1,8 @@
 local M = {}
 
+function M.firstToUpper(str)
+    return (str:gsub("^%l", string.upper))
+end
 
 function M.move_or_create_win(key)
     local fn = vim.fn

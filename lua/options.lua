@@ -1,4 +1,5 @@
 require "nvchad.options"
+local utils = require("utils")
 
 
 -- GENERAL SETTINGS ------------------------
@@ -27,12 +28,22 @@ vim.o.cursorlineopt = 'both' -- to enable cursorline!
 
 
 -- CUSTOM COMMANDS -------------------------
+
+-- open current directory in warp
+vim.api.nvim_create_user_command(
+    "Warp",
+    function()
+        vim.fn.system('open -a Warp .')
+    end,
+    {}
+)
+
 -- create react component
 -- add support for common components like "VisuallyHidden" (or just put that in the skeleton)
 vim.api.nvim_create_user_command(
     "NewComponent",
     function(opts)
-        local name = firstToUpper(opts.fargs[1])
+        local name = utils.firstToUpper(opts.fargs[1])
         local config = vim.fn.stdpath("config")
 
         -- check if component exists
@@ -43,7 +54,7 @@ vim.api.nvim_create_user_command(
             vim.cmd("silent !mv ./src/components/react-component-template ./src/components/" .. name)
             -- rename .jsx file
             vim.cmd("silent !mv ./src/components/" .. name .. "/NAME.jsx ./src/components/" .. name .. "/" ..
-            name .. ".jsx")
+                name .. ".jsx")
             -- replace component name in all files
             vim.cmd("silent !find ./src/components/" .. name .. "/ -type f | xargs sed -i '' 's/NAME/" .. name .. "/g' ")
             -- print success message
@@ -63,40 +74,73 @@ vim.api.nvim_create_user_command(
 )
 
 -- toggle zen mode
--- DOESNT WORD YET
 local zenModeEnabled = false
+local saved_settings = {}
+
 vim.api.nvim_create_user_command(
     "ToggleZen",
     function()
+        zenModeEnabled = not zenModeEnabled
+        
         if zenModeEnabled then
-            -- conform
+            print('🧘 Zen mode enabled 🧘')
+            
+            -- Save current settings
+            saved_settings.showtabline = vim.opt.showtabline:get()
+            saved_settings.laststatus = vim.opt.laststatus:get()
+            saved_settings.number = vim.opt.number:get()
+            saved_settings.relativenumber = vim.opt.relativenumber:get()
+            saved_settings.signcolumn = vim.opt.signcolumn:get()
+            saved_settings.foldcolumn = vim.opt.foldcolumn:get()
+            saved_settings.colorcolumn = vim.opt.colorcolumn:get()
+            
+            -- Hide UI elements
+            vim.opt.showtabline = 0     -- hide tabline
+            vim.opt.laststatus = 0      -- hide statusline
+            vim.opt.number = false      -- hide line numbers
+            vim.opt.relativenumber = false -- hide relative line numbers
+            vim.opt.signcolumn = 'no'   -- hide sign column
+            vim.opt.foldcolumn = '0'    -- hide fold column
+            vim.opt.colorcolumn = ''    -- hide color column
+            
+            -- Disable format on save
+            saved_settings.conform_format_on_save = vim.g.conform_format_on_save
             vim.g.conform_format_on_save = false
-
-            -- blink
-            local new_sources = {}
-            for _, source in ipairs(cmp.get_config().sources) do
-                if source.name ~= "blink" then
-                    table.insert(new_sources, source)
-                else
-                    blink_cmp_source = source -- store it to re-enable later
-                end
-            end
-            cmp.setup({ sources = new_sources })
-
-
-            print('Zen mode disabled')
+            
+            -- Disable blink completion
+            saved_settings.completeopt = vim.opt.completeopt:get()
+            vim.opt.completeopt = ''
+            
+            -- Save and disable completion-related autocmds
+            vim.cmd('autocmd! CompleteDone')
+            vim.cmd('autocmd! TextChangedI')
+            vim.cmd('autocmd! TextChangedP')
+            
         else
-            -- conform
-            vim.g.conform_format_on_save = true
-
-            if blink_cmp_source then
-                local current_sources = cmp.get_config().sources
-                table.insert(current_sources, blink_cmp_source)
-                cmp.setup({ sources = current_sources })
+            print('🚨 Zen mode disabled 🚨')
+            
+            -- Restore saved settings
+            vim.opt.showtabline = saved_settings.showtabline or 2
+            vim.opt.laststatus = saved_settings.laststatus or 3
+            vim.opt.number = saved_settings.number ~= nil and saved_settings.number or true
+            vim.opt.relativenumber = saved_settings.relativenumber ~= nil and saved_settings.relativenumber or true
+            vim.opt.signcolumn = saved_settings.signcolumn or 'yes'
+            vim.opt.foldcolumn = saved_settings.foldcolumn or '0'
+            vim.opt.colorcolumn = saved_settings.colorcolumn or ''
+            
+            -- Restore format on save
+            vim.g.conform_format_on_save = saved_settings.conform_format_on_save
+            
+            -- Restore completion settings
+            if saved_settings.completeopt then
+                vim.opt.completeopt = saved_settings.completeopt
             end
-
-            print(' 🧘 Hush, im zenning... zzzZZZZZ')
+            
+            -- Re-source the completion config to restore autocmds
+            vim.schedule(function()
+                pcall(vim.cmd, 'doautocmd User BlinkCmpReload')
+            end)
         end
     end,
-    { nargs = 0 }
+    {}
 )
