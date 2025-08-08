@@ -64,6 +64,8 @@ map("n", "dd", function()
         return "dd"
     end
 end, { expr = true, desc = "delete line; use blackhole register on empty lines" })
+map("v", ".", ":norm .<CR>", { desc = "perform last change on all selected lines" })
+map("v", "@", ":norm @q<CR>", { desc = "perform q macro on all selected lines" })
 
 -- comments
 map("n", "/", "<cmd>normal gcc<CR>", { desc = "toggle comment" })
