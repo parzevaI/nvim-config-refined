@@ -24,6 +24,10 @@ map({ "n", "v" }, "s", "/", { desc = "flash search" })
 map({ "n", "v" }, "?", "/", { desc = "search for word" })
 map({ "n", "v" }, "*", "*N", { desc = "highlight instances of word under cursor" })
 map({ "n", "v" }, "n", "nzz", { desc = "next result" })
+map("n", "<leader>re", ":%s/\\<<C-r><C-w>\\>//gcI<Left><Left><Left><Left>", 
+    { desc = "search and replace word under cursor"})
+map("v", "<leader>re", "y:%s/\\V<C-r>=escape(@\", '/\\')<CR>//gcI<Left><Left><Left><Left>", 
+    { desc = "search and replace visual selection"})
 
 -- file searching (snacks picker)
 map("n", "<leader>fa", function()
