@@ -66,7 +66,7 @@ function M.runfile(file)
             local cargo_root = find_cargo_root(filedir)
 
             if cargo_root then
-                return "(builtin cd \"" .. cargo_root .. "\" && cargo run)"
+                return "(builtin cd \"" .. cargo_root .. "\" && cargo run --quiet)"
             else
                 local filename = string.match(filepath, "[^/]+$"):sub(1, -4)
                 return "(rustc " .. filepath .. " && ./" .. filename .. ")"
