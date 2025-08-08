@@ -102,8 +102,9 @@ map("n", "<C-k>", function()
     utils.move_or_create_win("k")
 end, { desc = "move or create split up" })
 
--- terminal
+-- TERMINAL --------------------------------
 map("n", ":", ":!", { desc = "open terminal command prompt" })
+map("v", ":", ":'<,'>w !", { desc = "pipe the selected text into a command" })
 map("n", "\\", function()
     require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "open floating terminal" })
