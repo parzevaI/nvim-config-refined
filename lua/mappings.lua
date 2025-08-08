@@ -57,6 +57,13 @@ map("n", "U", "<C-r>", { desc = "redo" })
 map("n", "gp", "'[V']", { desc = "select last change/paste" })
 map("n", "E", "<cmd>TSJToggle<CR>", { desc = "toggle collapsed formatting" })
 map("n", "<C-a>", "ggVG", { desc = "select all" }) -- change this to keep cursor in the same location
+map("n", "dd", function()
+    if vim.api.nvim_get_current_line():match("^%s*$") then
+        return '"_dd'
+    else
+        return "dd"
+    end
+end, { expr = true, desc = "delete line; use blackhole register on empty lines" })
 
 -- comments
 map("n", "/", "<cmd>normal gcc<CR>", { desc = "toggle comment" })
