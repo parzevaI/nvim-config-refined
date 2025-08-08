@@ -103,8 +103,9 @@ map("n", "<C-k>", function()
 end, { desc = "move or create split up" })
 
 -- TERMINAL --------------------------------
-map("n", ":", ":!", { desc = "open terminal command prompt" })
-map("v", ":", ":'<,'>w !", { desc = "pipe the selected text into a command" })
+map({ "n", "v" }, ":", ":!", { desc = "open terminal command prompt" })
+-- you can pipe visual without replacing the visual by writing it first
+-- :'<,'>w !python3
 map("n", "\\", function()
     require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "open floating terminal" })
