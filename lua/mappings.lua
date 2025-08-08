@@ -103,6 +103,7 @@ map("n", "<C-k>", function()
 end, { desc = "move or create split up" })
 
 -- terminal
+map("n", ":", ":!", { desc = "open terminal command prompt" })
 map("n", "\\", function()
     require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "open floating terminal" })
