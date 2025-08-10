@@ -96,4 +96,57 @@ function M.runfile(file)
     }
 end
 
+
+-- Delete all buffers except those currently displayed in any window (across all tabs)
+-- If force is true, modified buffers will also be closed.
+function M.delete_invisible_buffers(force)
+    local api = vim.api
+    local keep = {}
+
+    -- Collect bufnrs from all visible windows across all tabpages
+    for _, tab in ipairs(api.nvim_list_tabpages()) do
+        for _, win in ipairs(api.nvim_tabpage_list_wins(tab)) do
+            local b = api.nvim_win_get_buf(win)
+            keep[b] = true
+        end
+    end
+
+    local deleted, skipped = 0, {}
+
+    for _, buf in ipairs(api.nvim_list_bufs()) do
+        local ok_listed = pcall(function()
+            return vim.bo[buf].buflisted
+        end)
+        local listed = ok_listed and vim.bo[buf].buflisted or false
+
+        if listed and not keep[buf] then
+            local bt = vim.bo[buf].buftype
+            local modified = vim.bo[buf].modified
+            -- Skip special buffers
+            if bt == "help" or bt == "nofile" then
+                goto continue
+            end
+
+            if modified and not force then
+                table.insert(skipped, buf)
+                goto continue
+            end
+
+            local ok = pcall(api.nvim_buf_delete, buf, { force = force or false })
+            if ok then
+                deleted = deleted + 1
+            else
+                table.insert(skipped, buf)
+            end
+        end
+        ::continue::
+    end
+
+    local msg = string.format("Deleted %d buffers", deleted)
+    if #skipped > 0 then
+        msg = msg .. string.format("; skipped %d (modified or failed)", #skipped)
+    end
+    print(msg)
+end
+
 return M

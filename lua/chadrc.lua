@@ -7,7 +7,7 @@ local M = {}
 
 -- themes
 M.base46 = {
-    theme = "ashes",
+    theme = "aquarium",
 
     -- hl_override = {
     -- 	Comment = { italic = true },
@@ -17,7 +17,7 @@ M.base46 = {
 
 -- ui
 M.ui = {
-    theme = "ashes",
+    theme = "aquarium",
     -- transparency = true, -- uncomment for terminal emulators
 
     -- tabs

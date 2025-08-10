@@ -3,6 +3,18 @@ local utils = require("utils")
 
 -- CUSTOM COMMANDS -------------------------
 
+-- delete all buffers except the currently displayed ones
+-- :ClearBuffers       -> delete unshown buffers, keep modified ones
+-- :ClearBuffers!      -> force delete, even if modified
+vim.api.nvim_create_user_command(
+    "ClearBuffers",
+    function(opts)
+        local force = opts.bang or false
+        require("utils").delete_invisible_buffers(force)
+    end,
+    { bang = true }
+)
+
 -- open current directory in warp
 vim.api.nvim_create_user_command(
     "Warp",
