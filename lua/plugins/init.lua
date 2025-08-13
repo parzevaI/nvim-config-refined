@@ -34,6 +34,22 @@ return {
     {
         import = "nvchad.blink.lazyspec"
     },
+    {
+        "saghen/blink.cmp",
+        opts = function(_, opts)
+            opts.keymap = opts.keymap or {}
+            -- disable default preset so Tab/Shift-Tab aren't mapped by blink
+            opts.keymap.preset = 'none'
+            -- use Tab / Shift-Tab for snippet field navigation; otherwise fallback
+            opts.keymap["<Tab>"] = { "snippet_forward", "fallback" }
+            opts.keymap["<S-Tab>"] = { "snippet_backward", "fallback" }
+            -- keep your navigation on Ctrl-j/k for completion list
+            opts.keymap["<C-j>"] = { "select_next", "fallback" }
+            opts.keymap["<C-k>"] = { "select_prev", "fallback" }
+            -- accept the current suggestion with Ctrl-l
+            opts.keymap["<C-l>"] = { "accept", "fallback" }
+        end,
+    },
 
     -- highlight efficient f/F, t/T jump letters
     {
