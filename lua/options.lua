@@ -13,7 +13,7 @@ vim.opt.wrap = false
 vim.opt.relativenumber = true
 
 -- set tab width
-local tabWidth = 4
+local tabWidth = 4 -- default 4
 vim.opt.tabstop = tabWidth
 vim.opt.shiftwidth = tabWidth
 vim.opt.softtabstop = tabWidth

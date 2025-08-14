@@ -121,3 +121,39 @@ vim.api.nvim_create_user_command(
     end,
     {}
 )
+
+-- live-edit and persist tab width
+vim.api.nvim_create_user_command(
+    "SetTabWidth",
+    function(opts)
+        local w = tonumber(opts.fargs[1])
+        if not w or w < 1 or w > 16 then
+            print("Usage: :SetTabWidth <1-16>")
+            return
+        end
+
+        -- Apply immediately
+        vim.opt.tabstop = w
+        vim.opt.shiftwidth = w
+        vim.opt.softtabstop = w
+
+        -- Persist to lua/options.lua by updating `local tabWidth = <n>`
+        local config = vim.fn.stdpath("config")
+        local path = config .. "/lua/options.lua"
+
+        local ok, lines = pcall(vim.fn.readfile, path)
+        if ok and type(lines) == "table" then
+            for i, line in ipairs(lines) do
+                local replaced, count = line:gsub("^local%s+tabWidth%s*=%s*%d+%s*$", "local tabWidth = " .. w)
+                if count > 0 then
+                    lines[i] = replaced
+                    break
+                end
+            end
+            pcall(vim.fn.writefile, lines, path)
+        end
+
+        print("Tab width set to " .. w)
+    end,
+    { nargs = 1, complete = function() return {"2", "4", "8"} end }
+)
