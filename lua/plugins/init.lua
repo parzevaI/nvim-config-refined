@@ -238,6 +238,7 @@ return {
                 "javascript",
                 "typescript",
                 "tsx",
+                "styled",
                 --                "jsx"
             },
             highlight = { enable = true },
