@@ -3,6 +3,7 @@ local utils = require("utils")
 
 local map = vim.keymap.set
 
+
 -- faster basic commands
 map({ "n", "v" }, ";", ":", { desc = "enter command mode" })
 map({ "i", "c" }, "jk", "<ESC>")
@@ -61,6 +62,9 @@ map("n", "U", "<C-r>", { desc = "redo" })
 map("n", "gp", "'[V']", { desc = "select last change/paste" })
 map("n", "E", "<cmd>TSJToggle<CR>", { desc = "toggle collapsed formatting" })
 map("n", "<C-a>", "ggVG", { desc = "select all" }) -- change this to keep cursor in the same location
+map("n", "gs", function()
+    require('textcase').current_word('to_snake_case')
+end, { desc = "change word to snake case" })
 map("n", "dd", function()
     if vim.api.nvim_get_current_line():match("^%s*$") then
         return '"_dd'
