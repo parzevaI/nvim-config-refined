@@ -20,6 +20,22 @@ return {
 
 
     -- TEXT EDITING ----------------------------
+    -- yank history
+    {
+        "AckslD/nvim-neoclip.lua",
+        dependencies = {
+            -- sqlite keeps yank history across sessions
+            { "kkharji/sqlite.lua", module = "sqlite" },
+        },
+        config = function()
+            require("neoclip").setup({
+                history = 1000,
+                enable_persistant_history = true,
+                continuous_sync = true,
+            })
+        end
+    },
+
     -- snippets
     {
         "L3MON4D3/LuaSnip",

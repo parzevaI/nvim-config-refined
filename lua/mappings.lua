@@ -62,6 +62,7 @@ map("n", "U", "<C-r>", { desc = "redo" })
 map("n", "gp", "'[V']", { desc = "select last change/paste" })
 map("n", "E", "<cmd>TSJToggle<CR>", { desc = "toggle collapsed formatting" })
 map("n", "<C-a>", "ggVG", { desc = "select all" }) -- change this to keep cursor in the same location
+map("n", "<leader>fy", "<CMD>Telescope neoclip<CR>", { desc = "open yank history" })
 map("n", "gs", function()
     require('textcase').current_word('to_snake_case')
 end, { desc = "change word to snake case" })
