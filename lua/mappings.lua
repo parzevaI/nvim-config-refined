@@ -78,7 +78,6 @@ map("v", "@", ":norm @q<CR>", { desc = "perform q macro on all selected lines" }
 map("v", "g_", "<CMD>s/ /_/g", { desc = "replace spaces with underscores" })
 map("i", "<C-o>", "<ESC>o", { desc = "add a new line below" })
 map("i", "<C-S-O>", "<ESC>O", { desc = "add a new line above" })
-map("i", "<S-Space>", "_", { desc = "type an underscore" })
 
 -- comments
 map("n", "/", "<cmd>normal gcc<CR>", { desc = "toggle comment" })
