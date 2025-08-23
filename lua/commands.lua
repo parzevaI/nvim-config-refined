@@ -7,7 +7,7 @@ local utils = require("utils")
 -- :ClearBuffers       -> delete unshown buffers, keep modified ones
 -- :ClearBuffers!      -> force delete, even if modified
 vim.api.nvim_create_user_command(
-    "clearbuffers",
+    "ClearBuffers",
     function(opts)
         local force = opts.bang or false
         require("utils").delete_invisible_buffers(force)
@@ -17,7 +17,7 @@ vim.api.nvim_create_user_command(
 
 -- open current directory in warp
 vim.api.nvim_create_user_command(
-    "warp",
+    "Warp",
     function()
         vim.fn.system('open -a Warp .')
     end,
@@ -27,7 +27,7 @@ vim.api.nvim_create_user_command(
 -- create react component
 -- add support for common components like "VisuallyHidden" (or just put that in the skeleton)
 vim.api.nvim_create_user_command(
-    "newcomponent",
+    "NewComponent",
     function(opts)
         local name = utils.firstToUpper(opts.fargs[1])
         local config = vim.fn.stdpath("config")
@@ -64,7 +64,7 @@ local zenModeEnabled = false
 local saved_settings = {}
 
 vim.api.nvim_create_user_command(
-    "zen",
+    "Zen",
     function()
         zenModeEnabled = not zenModeEnabled
         
