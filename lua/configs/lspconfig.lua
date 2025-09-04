@@ -8,6 +8,7 @@ local servers = {
     "ts_ls",
     "eslint",
     "styled_components_ls",
+    "svelte",
 }
 vim.lsp.enable(servers)
 

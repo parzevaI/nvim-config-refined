@@ -13,6 +13,7 @@ return {
                 "stylua",
                 "html-lsp",
                 "css-lsp",
+                "svelte-language-server",
                 "prettier",
             },
         },
@@ -163,7 +164,8 @@ return {
             "javascriptreact",
             "typescript",
             "typescriptreact",
-            "html"
+            "html",
+            "svelte",
         },
         config = function()
             require("nvim-ts-autotag").setup()
@@ -282,6 +284,7 @@ return {
                 "typescript",
                 "tsx",
                 "styled",
+                "svelte",
                 --                "jsx"
             },
             highlight = { enable = true },
