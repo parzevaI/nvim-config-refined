@@ -5,53 +5,48 @@ require "nvchad.autocmds"
 
 -- automatically set tab width based on filetype
 -- 2 spaces for markup/web files, 4 spaces for others
-local function auto_set_tab_width()
-    local ft = vim.bo.filetype
-    
-    -- Skip for certain special filetypes where tab width doesn't matter
-    local skip_filetypes = {
-        "help", "startify", "dashboard", "packer", "nerdtree", "fugitive",
-        "gitcommit", "git", "TelescopePrompt", "neo-tree", ""
-    }
-    
-    for _, skip_ft in ipairs(skip_filetypes) do
-        if ft == skip_ft then
-            return
-        end
+local markup_filetypes = {
+  "html", "xml", "css", "scss", "sass", "less",
+  "javascript", "typescript", "javascriptreact", "typescriptreact",
+  "json", "yaml", "yml", "markdown",
+  "vue", "svelte", "astro",
+}
+
+local function set_tab_width_for_current_buffer()
+  local ft = vim.bo.filetype
+
+  -- Skip for certain special filetypes where tab width doesn't matter
+  local skip = {
+    help = true, startify = true, dashboard = true, packer = true, nerdtree = true,
+    fugitive = true, gitcommit = true, git = true, TelescopePrompt = true, ["neo-tree"] = true,
+  }
+  if skip[ft] then return end
+
+  local is_markup = false
+  for _, mft in ipairs(markup_filetypes) do
+    if ft == mft then
+      is_markup = true
+      break
     end
-    
-    -- Define markup/web filetypes that should use 2-space indentation
-    local markup_filetypes = {
-        "html", "xml", "css", "scss", "sass", "less",
-        "javascript", "typescript", "jsx", "tsx", "js", "ts",
-        "json", "yaml", "yml", "markdown", "md",
-        "vue", "svelte", "astro"
-    }
-    
-    -- Check if current filetype is a markup/web filetype
-    local is_markup = false
-    for _, markup_ft in ipairs(markup_filetypes) do
-        if ft == markup_ft then
-            is_markup = true
-            break
-        end
-    end
-    
-    -- Set tab width based on filetype category
-    local tab_width = is_markup and 2 or 4
-    
-    -- Apply the tab width settings
-    vim.opt.tabstop = tab_width
-    vim.opt.shiftwidth = tab_width
-    vim.opt.softtabstop = tab_width
+  end
+
+  local w = is_markup and 2 or 4
+  -- Use buffer-local options so other buffers keep their own widths
+  vim.opt_local.tabstop = w
+  vim.opt_local.shiftwidth = w
+  vim.opt_local.softtabstop = w
+  vim.opt_local.expandtab = true
 end
 
 local group = vim.api.nvim_create_augroup("AutoTabWidth", { clear = true })
 
-vim.api.nvim_create_autocmd({"BufReadPost", "BufNewFile"}, {
-    group = group,
-    callback = function()
-        auto_set_tab_width()
-    end,
-    desc = "Auto-set tab width based on filetype when opening files (2 for markup/web, 4 for others)"
+-- Run when filetype is set so we reliably know the buffer's filetype
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  pattern = "*",
+  callback = set_tab_width_for_current_buffer,
+  desc = "Set 2-space tabs for markup/web filetypes, 4 for others",
 })
+
+-- Apply once on startup for the current buffer in case FileType fired before this file loaded
+vim.schedule(set_tab_width_for_current_buffer)
