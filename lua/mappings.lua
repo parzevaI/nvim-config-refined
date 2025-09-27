@@ -123,6 +123,10 @@ map("n", "<C-k>", function()
     utils.move_or_create_win("k")
 end, { desc = "move or create split up" })
 
+-- buffers
+map("n", "<leader>bn", ":enew<CR>", { desc = "new buffer (w <name> to save)" })
+map("n", "<leader>bc", ":ClearBuffers<CR>", { desc = "clear all but current buffer" })
+
 -- TERMINAL --------------------------------
 map({ "n", "v" }, ":", ":!", { desc = "open terminal command prompt" })
 -- you can pipe visual without replacing the visual by writing it first
