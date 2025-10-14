@@ -43,7 +43,7 @@ return {
         version = "v2.*",
         build = "make install_jsregexp",
         config = function()
-            require('configs.snippets')
+            require('configs.luasnip')
         end,
     },
 
@@ -57,14 +57,17 @@ return {
             opts.keymap = opts.keymap or {}
             -- disable default preset so Tab/Shift-Tab aren't mapped by blink
             opts.keymap.preset = 'none'
-            -- use Tab / Shift-Tab for snippet field navigation; otherwise fallback
-            opts.keymap["<Tab>"] = { "snippet_forward", "fallback" }
-            opts.keymap["<S-Tab>"] = { "snippet_backward", "fallback" }
+            -- explicitly disable Tab and Shift-Tab
+            opts.keymap["<Tab>"] = {}
+            opts.keymap["<S-Tab>"] = {}
+            -- use Ctrl-l / Ctrl-h for snippet field navigation; otherwise fallback
+            opts.keymap["<C-l>"] = { "snippet_forward", "fallback" }
+            opts.keymap["<C-h>"] = { "snippet_backward", "fallback" }
             -- keep your navigation on Ctrl-j/k for completion list
             opts.keymap["<C-j>"] = { "select_next", "fallback" }
             opts.keymap["<C-k>"] = { "select_prev", "fallback" }
-            -- accept the current suggestion with Ctrl-l
-            opts.keymap["<C-l>"] = { "accept", "fallback" }
+            -- accept the current suggestion with Enter
+            opts.keymap["<CR>"] = { "accept", "fallback" }
         end,
     },
 
