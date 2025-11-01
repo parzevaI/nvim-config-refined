@@ -4,7 +4,7 @@ return {
         "williamboman/mason.nvim",
         opts = {
             ensure_installed = {
-                "pyright",
+                "pyright-langserver",
                 "rust-analyzer",
                 "typescript-language-server",
                 "eslint-lsp",
