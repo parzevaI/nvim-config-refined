@@ -78,10 +78,15 @@ map("n", "dd", function()
     end
 end, { expr = true, desc = "delete line; use blackhole register on empty lines" })
 map("v", ".", ":norm .<CR>", { desc = "perform last change on all selected lines" })
-map("v", "@", ":norm @q<CR>", { desc = "perform q macro on all selected lines" })
+-- map("v", "@", ":norm @q<CR>", { desc = "perform q macro on all selected lines" })
+map("v", ",", ":norm @q<CR>", { desc = "perform q macro on all selected lines" })
 map("v", "g_", "<CMD>s/ /_/g", { desc = "replace spaces with underscores" })
 -- map("i", "<C-o>", "<ESC>o", { desc = "add a new line below" }) -- [<space>
 -- map("i", "<C-S-O>", "<ESC>O", { desc = "add a new line above" })
+
+-- macros
+-- map("n", "?", "qu", { desc = "write quick macro" })
+map("n", ",", "@q", { desc = "run q macro" })
 
 -- comments
 map("n", "/", "<cmd>normal gcc<CR>", { desc = "toggle comment" })
