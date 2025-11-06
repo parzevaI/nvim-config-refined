@@ -19,6 +19,7 @@ map({ "n", "v" }, "H", "b", { desc = "move back a word" })
 map({ "n", "v" }, "L", "w", { desc = "move forward a word" })
 map({ "n", "v" }, "J", "5gj", { desc = "move down more" })
 map({ "n", "v" }, "K", "5gk", { desc = "move up more" })
+map({ "n", "v" }, "<CR>", "zz", { desc = "center cursor" })
 
 -- text searching
 map({ "n", "v" }, "s", "/", { desc = "flash search" })
@@ -83,6 +84,12 @@ map("v", ",", ":norm @q<CR>", { desc = "perform q macro on all selected lines" }
 map("v", "g_", "<CMD>s/ /_/g", { desc = "replace spaces with underscores" })
 -- map("i", "<C-o>", "<ESC>o", { desc = "add a new line below" }) -- [<space>
 -- map("i", "<C-S-O>", "<ESC>O", { desc = "add a new line above" })
+
+-- indenting
+map("n", "<tab>", ">>", { desc = "indent" })
+map("n", "<S-tab>", "<<", { desc = "unindent" })
+map("v", "<tab>", ">gv", { desc = "indent" })
+map("v", "<S-tab>", "<gv", { desc = "unindent" })
 
 -- macros
 -- map("n", "?", "qu", { desc = "write quick macro" })
