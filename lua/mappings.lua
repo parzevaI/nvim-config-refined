@@ -38,7 +38,7 @@ map("v", "<leader>re", "y:%s/\\V<C-r>=escape(@\", '/\\')<CR>//gcI<Left><Left><Le
 -- file searching (snacks picker)
 map("n", "<leader>fa", function()
     require("snacks").picker.smart()
-end, { desc = "Smart Find Files" })
+end, { desc = "smart find files" })
 
 map("n", "<leader>fb,", function()
     require("snacks").picker.buffers()
@@ -86,10 +86,10 @@ map("v", "g_", "<CMD>s/ /_/g", { desc = "replace spaces with underscores" })
 -- map("i", "<C-S-O>", "<ESC>O", { desc = "add a new line above" })
 
 -- indenting
-map("n", "<tab>", ">>", { desc = "indent" })
-map("n", "<S-tab>", "<<", { desc = "unindent" })
-map("v", "<tab>", ">gv", { desc = "indent" })
-map("v", "<S-tab>", "<gv", { desc = "unindent" })
+map("n", ">", ">>", { desc = "indent" })
+map("n", "<", "<<", { desc = "unindent" })
+map("v", ">", ">gv", { desc = "indent" })
+map("v", "<", "<gv", { desc = "unindent" })
 
 -- macros
 -- map("n", "?", "qu", { desc = "write quick macro" })
